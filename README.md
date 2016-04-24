@@ -1,11 +1,11 @@
 # jsodvcs
 A git-like distributed version control system for javascript objects.
 
-[![Build Status](https://travis-ci.org/Wortex17/jsod.svg?branch=master)](https://travis-ci.org/Wortex17/jsod)
-[![Coverage Status](https://coveralls.io/repos/github/Wortex17/jsod/badge.svg?branch=master)](https://coveralls.io/github/Wortex17/jsod?branch=master)  
-[![NPM Version](https://img.shields.io/npm/v/jsod.svg)](https://www.npmjs.com/package/jsod)
-[![NPM Dependencies](https://img.shields.io/david/Wortex17/jsod.svg)](https://www.npmjs.com/package/jsod)
-[![NPM Dev Dependencies](https://img.shields.io/david/dev/Wortex17/jsod.svg)](https://www.npmjs.com/package/jsod)
+[![Build Status](https://travis-ci.org/Wortex17/jsodvcs.svg?branch=master)](https://travis-ci.org/Wortex17/jsodvcs)
+[![Coverage Status](https://coveralls.io/repos/github/Wortex17/jsodvcs/badge.svg?branch=master)](https://coveralls.io/github/Wortex17/jsodvcs?branch=master)  
+[![NPM Version](https://img.shields.io/npm/v/jsodvcs.svg)](https://www.npmjs.com/package/jsodvcs)
+[![NPM Dependencies](https://img.shields.io/david/Wortex17/jsodvcs.svg)](https://www.npmjs.com/package/jsodvcs)
+[![NPM Dev Dependencies](https://img.shields.io/david/dev/Wortex17/jsodvcs.svg)](https://www.npmjs.com/package/jsodvcs)
 
 Jsodvcs (**J**ava**S**cript **O**bject **D**istributed **V**ersion **C**ontrol **S**ystem) 
 gives users the possibility to store javascript objects and other native
