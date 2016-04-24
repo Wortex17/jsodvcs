@@ -1,0 +1,46 @@
+{
+  "name": "jsodvcs",
+  "version": "0.0.1",
+  "description": "A git-like distributed version control system for javascript objects",
+  "keywords": [
+    "dvcs",
+    "version control",
+    "version",
+    "jsod",
+    "git",
+    "merge",
+    "log",
+    "branch",
+    "object",
+    "array"
+  ],
+  "license": "MIT",
+  "author": "Patrick Michael Hopf (https://github.com/Wortex17)",
+  "homepage": "https://github.com/Wortex17/jsodvcs#readme",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/wortex17/jsodvcs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Wortex17/jsodvcs/issues"
+  },
+  "main": "lib",
+  "scripts": {
+    "test": "mocha spec --recursive",
+    "test-cover": "istanbul cover node_modules/mocha/bin/_mocha -- spec --recursive",
+    "preversion": "npm test",
+    "prepublish": "npm test"
+  },
+  "engines": {
+    "node": ">=4.0"
+  },
+  "dependencies": {
+    "lodash": "^4.6.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-spies": "^0.7.1",
+    "coveralls": "^2.11.9",
+    "mocha": "^2.4.5"
+  }
+}

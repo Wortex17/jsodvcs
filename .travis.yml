@@ -1,0 +1,20 @@
+os:
+  - linux
+language: node_js
+node_js:
+  - "stable"
+  - "5"
+  - "5.1"
+  - "4"
+  - "4.2"
+  - "4.1"
+  - "4.0"
+  - "iojs"
+before_script:
+  - npm install -g istanbul
+script: npm run-script test-cover
+# Send coverage data to Coveralls
+after_script: "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+
+notifications:
+  email: false
