@@ -26,6 +26,11 @@ describe('Repository', function() {
             expect(repo.HEAD).to.exist;
             expect(repo.HEAD).to.be.a("string");
         });
+        it('should have an empty "index" object property', function() {
+            expect(repo).to.have.ownProperty('index');
+            expect(repo.index).to.exist;
+            expect(repo.index).to.be.a("object");
+        });
         it('should have an empty "objects" object property', function() {
             expect(repo).to.have.ownProperty('objects');
             expect(repo.objects).to.exist;
