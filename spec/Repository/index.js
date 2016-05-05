@@ -12,8 +12,10 @@ let
 
 describe('Repository', function() {
     require("./init").spec();
+    require("./ref").spec();
     require("./update_index").spec();
     require("./add").spec();
     require("./remove").spec();
     require("./get").spec();
+    require("./commit").spec();
 });
