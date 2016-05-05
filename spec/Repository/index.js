@@ -14,4 +14,5 @@ describe('Repository', function() {
     require("./init").spec();
     require("./update_index").spec();
     require("./add").spec();
+    require("./remove").spec();
 });
