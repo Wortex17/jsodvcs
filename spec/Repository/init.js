@@ -10,11 +10,11 @@ let
     jsodvcs = require("../../")
 ;
 
-describe('Repository', function() {
+exports.spec = function(){
 
     let Repository = jsodvcs.Repository;
 
-    describe('#constructor()', function() {
+    describe('Repository#constructor()', function() {
 
         let repo = new Repository();
 
@@ -48,12 +48,10 @@ describe('Repository', function() {
 
     });
 
-    describe('#init()', function() {
-
-        let repo = Repository.init();
-        it('should return the same as instancing with the constructor', function() {
+    describe('jsodvcs#init()', function() {
+        let repo = jsodvcs.init();
+        it('should return the same as Repository#constructor()', function() {
             expect(repo).to.deep.equal(new Repository());
         });
-
     });
-});
+};
