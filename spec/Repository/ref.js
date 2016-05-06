@@ -13,7 +13,7 @@ let
 exports.spec = function(){
 
 
-    describe.only('Repository.isRef(ref)', function() {
+    describe('Repository.isRef(ref)', function() {
 
         context("when valid ref syntax", function() {
             it("should return true", function () {
@@ -66,8 +66,8 @@ exports.spec = function(){
             it("should return the pointed objectHash", function () {
                 expect(repo.get_ref("refs/heads/master")).to.equal("@refpointer@hash@");
             });
-            it("should ignore the leading 'refs/' part", function () {
-                expect(repo.get_ref("heads/master")).to.equal("@refpointer@hash@");
+            it("should not ignore the leading 'refs/' part", function () {
+                expect(repo.get_ref("heads/master")).to.be.undefined;
             });
         });
     });
@@ -90,8 +90,11 @@ exports.spec = function(){
             it("should return the repository", function () {
                 expect(repo.set_ref("refs/heads/master", "@refpointer@hash@")).to.be.equal(repo);
             });
-            it("should ignore the leading 'refs/' part", function () {
-                expect(repo.get_ref("heads/master")).to.equal("@refpointer@hash@");
+            it("should not ignore the leading 'refs/' part", function () {
+                expect(function(){repo.set_ref("heads/master");}).to.throw(TypeError);
+            });
+            it("should make the ref available via get_ref", function () {
+                expect(repo.get_ref("refs/heads/master")).to.equal("@refpointer@hash@");
             });
         });
 
@@ -106,8 +109,11 @@ exports.spec = function(){
             it("should return the repository", function () {
                 expect(repo.set_ref("refs/heads/master", "@refpointer@hash@2")).to.be.equal(repo);
             });
-            it("should ignore the leading 'refs/' part", function () {
-                expect(repo.get_ref("heads/master")).to.equal("@refpointer@hash@2");
+            it("should not ignore the leading 'refs/' part", function () {
+                expect(function(){repo.set_ref("heads/master");}).to.throw(TypeError);
+            });
+            it("should make the ref available via get_ref", function () {
+                expect(repo.get_ref("refs/heads/master")).to.equal("@refpointer@hash@2");
             });
         });
 
@@ -120,10 +126,88 @@ exports.spec = function(){
             repo.set_ref("refs/heads/this/is/really/really/deep", "@refpointer@hash@");
 
             it("should return the repository", function () {
-                expect(repo.set_ref("refs/this/is/really/really/deep", "@refpointer@hash@2")).to.be.equal(repo);
+                expect(repo.set_ref("refs/heads/this/is/really/really/deep", "@refpointer@hash@2")).to.be.equal(repo);
             });
-            it("should ignore the leading 'refs/' part", function () {
-                expect(repo.get_ref("this/is/really/really/deep")).to.equal("@refpointer@hash@2");
+            it("should not ignore the leading 'refs/' part", function () {
+                expect(function(){repo.set_ref("heads/master", "@refpointer@hash@2");}).to.throw(TypeError);
+            });
+            it("should make the ref available via get_ref and the new pointed hash", function () {
+                repo.set_ref("refs/heads/this/is/really/really/deep", "@refpointer@hash@2");
+                expect(repo.get_ref("refs/heads/this/is/really/really/deep")).to.equal("@refpointer@hash@2");
+            });
+        });
+    });
+    
+    describe('Repository#resolve_ref(ref)', function() {
+
+        let repo = new jsodvcs.Repository();
+        repo.objects['@re'] = {};
+        repo.objects['@re']['fpointer@hash@'] = "foobar";
+        repo.objects['@re']['fpointer@hash@2'] = "foobar2";
+        repo.HEAD = "refs/heads/master";
+        repo.FETCH_HEAD = "@refpointer@hash@2";
+        repo.MERGE_HEAD = "HEAD";
+        repo.set_ref("refs/heads/master", "@refpointer@hash@");
+
+        let repo2 = new jsodvcs.Repository();
+        delete repo2.HEAD;
+        repo2.objects['@re'] = {};
+        repo2.objects['@re']['fpointer@hash@'] = "foobar";
+        repo2.objects['@re']['fpointer@hash@2'] = "foobar2";
+
+        context("when resolving invalid ref name", function() {
+            it("should return undefined", function () {
+                expect(repo.resolve_ref("99be_/")).to.be.undefined;
+            });
+        });
+
+        context("when resolving invalid (and not local) ref name", function() {
+            it("should return undefined", function () {
+                expect(repo.resolve_ref("XOXOXO")).to.be.undefined;
+            });
+        });
+
+        context("when resolving valid fully qualified ref name", function() {
+            it("should return the stored objectHash", function () {
+                expect(repo.resolve_ref("refs/heads/master")).to.equal("@refpointer@hash@");
+            });
+        });
+
+        context("when resolving local ref name", function() {
+            it("should return the same as the fully qualified ref name", function () {
+                expect(repo.resolve_ref("master")).to.equal(repo.resolve_ref("refs/heads/master"));
+            });
+        });
+
+        context("when resolving HEAD", function() {
+            it("should return the same as the branch pointed to by HEAD", function () {
+                expect(repo.resolve_ref("HEAD")).to.equal(repo.resolve_ref("refs/heads/master"));
+            });
+        });
+        context("when resolving FETCH_HEAD (which directly points to objectHash)", function() {
+            it("should return the same as the object hash pointed to by REF_HEAD", function () {
+                expect(repo.resolve_ref("FETCH_HEAD")).to.equal("@refpointer@hash@2");
+            });
+        });
+        context("when resolving MERGE_HEAD (which points to HEAD)", function() {
+            it("should return the same as HEAD", function () {
+                expect(repo.resolve_ref("MERGE_HEAD")).to.equal(repo.resolve_ref("HEAD"));
+            });
+        });
+
+        context("when resolving HEAD (which is not set)", function() {
+            it("should return the same as the branch pointed to by HEAD", function () {
+                expect(repo2.resolve_ref("HEAD")).to.be.undefined;
+            });
+        });
+        context("when resolving FETCH_HEAD (which is not set)", function() {
+            it("should return the same as the object hash pointed to by REF_HEAD", function () {
+                expect(repo2.resolve_ref("FETCH_HEAD")).to.be.undefined;
+            });
+        });
+        context("when resolving MERGE_HEAD (which is not set)", function() {
+            it("should return undefined", function () {
+                expect(repo2.resolve_ref("MERGE_HEAD")).to.be.undefined;
             });
         });
     });
