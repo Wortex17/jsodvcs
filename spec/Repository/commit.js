@@ -38,8 +38,8 @@ exports.spec = function(){
             });
             it('should let the HEAD ref point to the current commit', function () {
                 expect(repo.get_head()).to.equal(out.commitHash);
-                expect(repo.get_head_commit()).to.equal(repo.get_commit(out.commitHash));
-                expect(repo.get_commit(repo.HEAD)).to.equal(repo.get_commit(out.commitHash));
+                expect(repo.get_head_commit()).to.equal(repo.get_object(out.commitHash));
+                expect(repo.get_object(repo.HEAD)).to.equal(repo.get_object(out.commitHash));
             });
         });
         context("when committing no further content; no message; no options", function() {
@@ -54,8 +54,8 @@ exports.spec = function(){
             });
             it('should let the HEAD ref point to the the previous commit', function () {
                 expect(repo.get_head()).to.equal(out.commitHash);
-                expect(repo.get_head_commit()).to.equal(repo.get_commit(out.commitHash));
-                expect(repo.get_commit(repo.HEAD)).to.equal(repo.get_commit(out.commitHash));
+                expect(repo.get_head_commit()).to.equal(repo.get_object(out.commitHash));
+                expect(repo.get_object(repo.HEAD)).to.equal(repo.get_object(out.commitHash));
             });
         });
         context("when committing changed content; no message; no options", function() {
@@ -71,8 +71,8 @@ exports.spec = function(){
             });
             it('should let the HEAD ref point to the latest commit', function () {
                 expect(repo.get_head()).to.equal(out2.commitHash);
-                expect(repo.get_head_commit()).to.equal(repo.get_commit(out2.commitHash));
-                expect(repo.get_commit(repo.HEAD)).to.equal(repo.get_commit(out2.commitHash));
+                expect(repo.get_head_commit()).to.equal(repo.get_object(out2.commitHash));
+                expect(repo.get_object(repo.HEAD)).to.equal(repo.get_object(out2.commitHash));
             });
         });
         context("when committing further content; with message; date,author,committer set", function() {
@@ -93,11 +93,11 @@ exports.spec = function(){
             });
             it('should let the HEAD ref point to the latest commit', function () {
                 expect(repo.get_head()).to.equal(out2.commitHash);
-                expect(repo.get_head_commit()).to.equal(repo.get_commit(out2.commitHash));
-                expect(repo.get_commit(repo.HEAD)).to.equal(repo.get_commit(out2.commitHash));
+                expect(repo.get_head_commit()).to.equal(repo.get_object(out2.commitHash));
+                expect(repo.get_object(repo.HEAD)).to.equal(repo.get_object(out2.commitHash));
             });
             it('should write message, date, author and committer to the commit', function () {
-                let commit = repo.get_commit(out2.commitHash);
+                let commit = repo.get_object(out2.commitHash);
                 expect(commit.date).to.deep.equal(new Date(1462463105392));
                 expect(commit.author).to.deep.equal('Arthur');
                 expect(commit.committer).to.deep.equal('Colonel Mitter');
