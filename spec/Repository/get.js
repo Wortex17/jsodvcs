@@ -11,11 +11,11 @@ let
 ;
 
 exports.spec = function(){
-    describe('Repository#get(path)', function() {
+    describe('Repository#get_indexed_content(path)', function() {
 
         context("when content was added at path before", function() {
             let repo = new jsodvcs.Repository();
-            let ret = repo.add("foo/bar", 42).get("foo/bar");
+            let ret = repo.add("foo/bar", 42).get_indexed_content("foo/bar");
 
             it('should return the previously added content', function () {
                 expect(ret).to.equal(42);
@@ -24,7 +24,7 @@ exports.spec = function(){
 
         context("when no content was added at path before", function() {
             let repo = new jsodvcs.Repository();
-            let ret = repo.add("foo/bar", 42).get("foo/bar/XX");
+            let ret = repo.add("foo/bar", 42).get_indexed_content("foo/bar/XX");
 
             it('should return undefined', function () {
                 expect(ret).to.equal(undefined);
