@@ -20,7 +20,7 @@ exports.spec = function(){
                 expect(ret).to.be.equal(repo);
             });
             it('should add no entries to the "objects" object property', function () {
-                expect(_.keys(repo.objects)).to.have.lengthOf(0);
+                expect(repo.objects).to.have.lengthOf(0);
             });
             it('should let the HEAD ref point to nothing', function () {
                 expect(repo.get_head_commit()).to.be.undefined;
@@ -34,7 +34,7 @@ exports.spec = function(){
                 expect(ret).to.be.equal(repo);
             });
             it('should add 3 entries to the "objects" object property (content, index, commit)', function () {
-                expect(_.keys(repo.objects)).to.have.lengthOf(3);
+                expect(repo.objects).to.have.lengthOf(3);
             });
             it('should let the HEAD ref point to the current commit', function () {
                 expect(repo.get_head()).to.equal(out.commitHash);
@@ -50,7 +50,7 @@ exports.spec = function(){
                 expect(ret).to.be.equal(repo);
             });
             it('should add no more entries to the "objects" object property', function () {
-                expect(_.keys(repo.objects)).to.have.lengthOf(3);
+                expect(repo.objects).to.have.lengthOf(3);
             });
             it('should let the HEAD ref point to the the previous commit', function () {
                 expect(repo.get_head()).to.equal(out.commitHash);
@@ -67,7 +67,7 @@ exports.spec = function(){
                 expect(ret).to.be.equal(repo);
             });
             it('should add 3 more entries to the "objects" object property (content, index, commit)', function () {
-                expect(_.keys(repo.objects)).to.have.lengthOf(6);
+                expect(repo.objects).to.have.lengthOf(6);
             });
             it('should let the HEAD ref point to the latest commit', function () {
                 expect(repo.get_head()).to.equal(out2.commitHash);
@@ -89,7 +89,7 @@ exports.spec = function(){
                 expect(ret).to.be.equal(repo);
             });
             it('should add 3 more entries to the "objects" object property (content, index, commit)', function () {
-                expect(_.keys(repo.objects)).to.have.lengthOf(6);
+                expect(repo.objects).to.have.lengthOf(6);
             });
             it('should let the HEAD ref point to the latest commit', function () {
                 expect(repo.get_head()).to.equal(out2.commitHash);

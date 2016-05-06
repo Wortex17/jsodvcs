@@ -21,7 +21,7 @@ exports.spec = function(){
                 expect(ret).to.equal(repo);
             });
             it('should add an entry to the "objects" object property', function () {
-                expect(_.keys(repo.objects)).to.have.lengthOf(1);
+                expect(repo.objects).to.have.lengthOf(1);
             });
             it('should add an entry to the "index" object property with the given path as property name', function () {
                 expect(_.keys(repo.index)).to.have.lengthOf(1);
@@ -36,7 +36,7 @@ exports.spec = function(){
                 expect(ret).to.equal(repo);
             });
             it('should not add an entry to the "objects" object property', function () {
-                expect(_.keys(repo.objects)).to.have.lengthOf(0);
+                expect(repo.objects).to.have.lengthOf(0);
             });
             it('should not add an entry to the "index" object property', function () {
                 expect(_.keys(repo.index)).to.have.lengthOf(0);
@@ -47,7 +47,7 @@ exports.spec = function(){
             repo.add("foo/bar", 42).add("foo/bar", 46);
 
             it('should add an entry to the "objects" object property', function () {
-                expect(_.keys(repo.objects)).to.have.lengthOf(2);
+                expect(repo.objects).to.have.lengthOf(2);
             });
             it('should not add an entry to the "index" object property', function () {
                 expect(_.keys(repo.index)).to.have.lengthOf(1);
@@ -59,7 +59,7 @@ exports.spec = function(){
             repo.add("foo/bar", 42).add("foo/bar");
 
             it('should not add an entry to the "objects" object property', function () {
-                expect(_.keys(repo.objects)).to.have.lengthOf(1);
+                expect(repo.objects).to.have.lengthOf(1);
             });
             it('should remove the entry from the "index" object property', function () {
                 expect(_.keys(repo.index)).to.have.lengthOf(0);
@@ -71,7 +71,7 @@ exports.spec = function(){
             repo.add("foo/bar", 42).add("foo/bar", undefined, {ignore_removal: true});
 
             it('should not add an entry to the "objects" object property', function () {
-                expect(_.keys(repo.objects)).to.have.lengthOf(1);
+                expect(repo.objects).to.have.lengthOf(1);
             });
             it('should not remove the entry from the "index" object property', function () {
                 expect(_.keys(repo.index)).to.have.lengthOf(1);
