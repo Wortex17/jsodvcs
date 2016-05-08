@@ -78,4 +78,27 @@ exports.spec = function(){
             });
         });
     });
+
+
+    describe('Repository.objects (RepositoryObjectStorage)', function() {
+
+
+
+        describe('RepositoryObjectStorage#toJSON()', function() {
+            let repo = new jsodvcs.Repository();
+            repo.add("foo/bar", "foobar");
+            it('should be a transparent wrapper to the underlying container when serializing', function () {
+                expect(JSON.stringify(repo.objects)).to.deep.equal(JSON.stringify(repo.objects.storage));
+            });
+        });
+
+        describe('RepositoryObjectStorage#get(objectHash)', function() {
+            let repo = new jsodvcs.Repository();
+            repo.add("foo/bar", "foobar");
+            it('should return undefined when storage has storaged content in wrong internal format', function () {
+                repo.objects.storage['abc'] = {'defghijk': false};
+                expect(repo.objects.get('abcdefghijk')).to.be.undefined;
+            });
+        });
+    });
 };
