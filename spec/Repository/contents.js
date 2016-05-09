@@ -99,6 +99,14 @@ exports.spec = function(){
                 repo.objects.storage['abc'] = {'defghijk': false};
                 expect(repo.objects.get('abcdefghijk')).to.be.undefined;
             });
+            it('should return undefined when obejcts was found but does not have correct flags', function () {
+                repo.objects.set("0123456789", "foobar",  {setFlags: ['xxx']});
+                expect(repo.objects.get('0123456789', {flags: []})).to.be.undefined;
+            });
+            it('should return the object when objects was found and has the correct flags', function () {
+                repo.objects.set("0123456789", "foobar", {setFlags: ['xxx']});
+                expect(repo.objects.get('0123456789', {flags: ['xxx']})).to.equal("foobar");
+            });
         });
     });
 };
