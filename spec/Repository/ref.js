@@ -205,5 +205,33 @@ exports.spec = function(){
                 expect(repo2.resolve_ref("MERGE_HEAD")).to.be.undefined;
             });
         });
+
+        context("when resolving invalid ref name with refOnly:true", function() {
+            it("should return undefined", function () {
+                expect(repo.resolve_ref("99be_/", {refOnly:true})).to.be.undefined;
+            });
+        });
+
+        context("when resolving invalid (and not local) ref name with refOnly:true", function() {
+            it("should return undefined", function () {
+                expect(repo.resolve_ref("XOXOXO", {refOnly:true})).to.be.undefined;
+            });
+        });
+
+        context("when resolving valid fully qualified ref name with refOnly:true", function() {
+            it("should return the qualified ref name", function () {
+                expect(repo.resolve_ref("refs/heads/master", {refOnly:true})).to.equal("refs/heads/master");
+            });
+        });
+        context("when resolving HEAD with refOnly:true", function() {
+            it("should return the qualified ref name", function () {
+                expect(repo.resolve_ref("HEAD", {refOnly:true})).to.equal("refs/heads/master");
+            });
+        });
+        context("when resolving HEAD (which is not set) with refOnly:true", function() {
+            it("should return undefined", function () {
+                expect(repo2.resolve_ref("HEAD", {refOnly:true})).to.be.undefined;
+            });
+        });
     });
 };
