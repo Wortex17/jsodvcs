@@ -71,6 +71,27 @@ exports.spec = function(){
                 expect(repo.detached_HEAD).to.be.false;
             });
         });
+        context("given ref; mode:soft", function() {
+            let repo = new jsodvcs.Repository();
+            let out = {};
+            repo.add("foo/bar", 42).commit("", {out:out}).add("foo/bar", 84).commit("")
+                .add("foo/bar", 126);
+            repo.set_ref('refs/heads/beta', out.commitHash);
+            let ret = repo.reset('refs/heads/beta', {mode: jsodvcs.Repository.ResetMode.soft});
+
+            it('should return the repository', function () {
+                expect(ret).to.equal(repo);
+            });
+            it('should reset the index to the commit tree', function () {
+                expect(repo.get_content("foo/bar")).to.deep.equal(126);
+            });
+            it('should set the HEAD to the ref', function () {
+                expect(repo.HEAD).to.equal('refs/heads/beta');
+            });
+            it('should not bring the repository into a detached HEAD state', function () {
+                expect(repo.detached_HEAD).to.be.false;
+            });
+        });
     });
 
 
