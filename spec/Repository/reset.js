@@ -77,7 +77,7 @@ exports.spec = function(){
             repo.add("foo/bar", 42).commit("", {out:out}).add("foo/bar", 84).commit("")
                 .add("foo/bar", 126);
             repo.set_ref('refs/heads/beta', out.commitHash);
-            let ret = repo.reset('refs/heads/beta', {mode: jsodvcs.Repository.ResetMode.soft});
+            let ret = repo.reset('refs/heads/beta', {mode: jsodvcs.ResetMode.soft});
 
             it('should return the repository', function () {
                 expect(ret).to.equal(repo);
