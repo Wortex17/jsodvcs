@@ -20,4 +20,5 @@ describe('Repository', function() {
     require("./commit").spec();
     require("./reset").spec();
     require("./status").spec();
+    require("./diff").spec();
 });
