@@ -56,4 +56,43 @@ exports.spec = function(){
             });
         });
     });
+    describe('Repository#isClean', function() {
+        context("No previous commit, no changes", function(){
+            let repo = new jsodvcs.Repository();
+            it('should return true', function () {
+                expect(repo.isClean).to.be.true;
+            });
+        });
+        context("No previous commit, with changes", function(){
+            let repo = new jsodvcs.Repository();
+            repo.add('foo/bar', 42)
+                .add('foo/bar2', 2)
+            ;
+            it('should return false', function () {
+                expect(repo.isClean).to.be.false;
+            });
+        });
+        context("Previous commit, no changes", function(){
+            let repo = new jsodvcs.Repository();
+            repo.add('foo/bar', 42)
+                .add('foo/bar2', 2)
+                .commit("")
+            ;
+            it('should return true', function () {
+                expect(repo.isClean).to.be.true;
+            });
+        });
+        context("Previous commit, with changes", function(){
+            let repo = new jsodvcs.Repository();
+            repo.add('foo/bar', 42)
+                .add('foo/bar2', 2)
+                .commit("")
+                .add('foo/bar', 42)
+                .add('foo/bar2', 3)
+            ;
+            it('should return false', function () {
+                expect(repo.isClean).to.be.false;
+            });
+        });
+    });
 };
