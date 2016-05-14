@@ -47,7 +47,7 @@ exports.spec = function(){
                 expect(repo.HEAD).to.equal(out.commitHash);
             });
             it('should bring the repository into a detached HEAD state', function () {
-                expect(repo.detached_HEAD).to.be.true;
+                expect(repo.isDetachedHEAD).to.be.true;
             });
         });
         context("given ref; no options", function() {
@@ -68,7 +68,7 @@ exports.spec = function(){
                 expect(repo.HEAD).to.equal('refs/heads/beta');
             });
             it('should not bring the repository into a detached HEAD state', function () {
-                expect(repo.detached_HEAD).to.be.false;
+                expect(repo.isDetachedHEAD).to.be.false;
             });
         });
         context("given ref; mode:soft", function() {
@@ -89,7 +89,7 @@ exports.spec = function(){
                 expect(repo.HEAD).to.equal('refs/heads/beta');
             });
             it('should not bring the repository into a detached HEAD state', function () {
-                expect(repo.detached_HEAD).to.be.false;
+                expect(repo.isDetachedHEAD).to.be.false;
             });
         });
     });

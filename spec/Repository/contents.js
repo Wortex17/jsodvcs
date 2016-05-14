@@ -56,12 +56,12 @@ exports.spec = function(){
             });
         });
     });
-    describe('Repository#working_copy', function() {
+    describe('Repository#workingCopy', function() {
 
         context("when content was added before", function() {
             let repo = new jsodvcs.Repository();
             let content = {n:42};
-            let ret = repo.add("foo/bar", content).working_copy;
+            let ret = repo.add("foo/bar", content).workingCopy;
 
             it('should return an object containing paths and cloned contents', function () {
                 expect(ret).to.deep.equal({"foo/bar": {n:42}});
@@ -71,7 +71,7 @@ exports.spec = function(){
 
         context("when no content was added before", function() {
             let repo = new jsodvcs.Repository();
-            let ret = repo.working_copy;
+            let ret = repo.workingCopy;
 
             it('should return an empty object', function () {
                 expect(ret).to.deep.equal({});
