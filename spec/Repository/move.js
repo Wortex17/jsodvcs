@@ -137,6 +137,28 @@ exports.spec = function(){
                 expect(repo.get_content("b")).to.be.undefined;
             });
         });
+        context("sourcePath does exist, destinationPath does exists; swap:true", function() {
+            it('should not throw an error', function () {
+                let repo = new jsodvcs.Repository();
+                repo.add("a", 42);
+                repo.add("b", 8);
+                expect(function(){repo.move("a", "b", {swap:true});}).to.not.throw;
+            });
+            it('should add the previous destination content to sourcePath', function () {
+                let repo = new jsodvcs.Repository();
+                repo.add("a", 42);
+                repo.add("b", 8);
+                repo.move("a", "b", {swap:true});
+                expect(repo.get_content("a")).to.equal(8);
+            });
+            it('should add the previous source content to destinationPath', function () {
+                let repo = new jsodvcs.Repository();
+                repo.add("a", 42);
+                repo.add("b", 8);
+                repo.move("a", "b", {swap:true});
+                expect(repo.get_content("b")).to.equal(42);
+            });
+        });
     });
     describe('Repository#rename()', function() {
         it('should return the repository', function () {
