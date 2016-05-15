@@ -16,6 +16,7 @@ describe('Repository', function() {
     require("./update_index").spec();
     require("./add").spec();
     require("./remove").spec();
+    require("./move").spec();
     require("./contents").spec();
     require("./commit").spec();
     require("./reset").spec();
