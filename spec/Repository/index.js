@@ -23,4 +23,5 @@ describe('Repository', function() {
     require("./status").spec();
     require("./diff").spec();
     require("./branch").spec();
+    require("./checkout").spec();
 });
