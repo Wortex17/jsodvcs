@@ -24,4 +24,5 @@ describe('Repository', function() {
     require("./diff").spec();
     require("./branch").spec();
     require("./checkout").spec();
+    require("./get_lca").spec();
 });

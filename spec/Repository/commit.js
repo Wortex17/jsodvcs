@@ -45,7 +45,8 @@ exports.spec = function(){
         context("when committing no further content; no message; no options", function() {
             let repo = new jsodvcs.Repository();
             let out = {};
-            let ret = repo.add("foo/bar", 42).commit({out:out}).commit();
+            let out2 = {};
+            let ret = repo.add("foo/bar", 42).commit({out:out}).commit({out:out2});
             it("should return the repo", function () {
                 expect(ret).to.be.equal(repo);
             });
@@ -56,6 +57,12 @@ exports.spec = function(){
                 expect(repo.get_head()).to.equal(out.commitHash);
                 expect(repo.get_head_commit()).to.equal(repo.get_object(out.commitHash));
                 expect(repo.get_object(repo.HEAD)).to.equal(repo.get_object(out.commitHash));
+            });
+            it('should set the out-didCommit to false', function () {
+                expect(out2.didCommit).to.be.false;
+            });
+            it('should set the out-commit to the head-commit before', function () {
+                expect(out2.commitHash).to.equal(out.commitHash);
             });
         });
         context("when committing changed content; no message; no options", function() {
