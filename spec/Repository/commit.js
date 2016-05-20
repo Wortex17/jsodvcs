@@ -111,5 +111,35 @@ exports.spec = function(){
                 expect(commit.message).to.deep.equal('commitB');
             });
         });
+
+        context("when committing merged content; no message; no options", function() {
+            let repo = new jsodvcs.Repository();
+            let outA = {};
+            let outB = {};
+            let outX = {};
+            let outY = {};
+            repo.add("foo/bar", 42).commit({out:outX});
+            repo.branch("branchA").checkout("branchA");
+            repo.add("foo/bar", 84).commit({out:outA});
+            repo.checkout("master");
+            repo.branch("branchB").checkout("branchB");
+            repo.add("foo/bar1", 2).commit({out:outB});
+
+            repo.checkout("branchA");
+            let ret = repo.merge("branchB").commit({out:outY});
+
+            it("should return the repo", function () {
+                expect(ret).to.be.equal(repo);
+            });
+            it("should have committed without further changes", function () {
+                expect(outY.didCommit).to.be.true;
+            });
+            it("should remove merging state", function () {
+                expect(repo.isMerging).to.be.false;
+            });
+            it("should give the commit two parents", function () {
+                expect(outY.commit.parents).to.deep.equal([outA.commitHash, outB.commitHash]);
+            });
+        });
     });
 };
