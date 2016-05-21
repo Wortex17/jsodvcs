@@ -173,7 +173,7 @@ exports.spec = function(){
                 .commit();
             repoA.MERGE_HEAD = "ujfnu93oh9§";
             let repoB = new jsodvcs.Repository();
-            it('should throw a type error', function() {
+            it('should throw an error', function() {
                 expect(function(){repoA.fetch(repoB)}).to.throw(Error);
             });
         });
@@ -186,7 +186,20 @@ exports.spec = function(){
                 .commit();
             let repoB = new jsodvcs.Repository();
             repoB.MERGE_HEAD = "ujfnu93oh9§";
-            it('should throw a type error', function() {
+            it('should throw an error', function() {
+                expect(function(){repoA.fetch(repoB)}).to.throw(Error);
+            });
+        });
+        context("when fetching from a repository which has a different hashVersion", function(){
+            let repoA = new jsodvcs.Repository();
+            repoA
+                .add("foo/int", 42)
+                .add("foo/string", "foobar")
+                .add("foo/obj", {a:'a'})
+                .commit();
+            let repoB = new jsodvcs.Repository();
+            repoB.hashVersion = "somethingelse@0.0.0";
+            it('should throw an error', function() {
                 expect(function(){repoA.fetch(repoB)}).to.throw(Error);
             });
         });
