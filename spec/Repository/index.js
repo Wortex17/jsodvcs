@@ -26,4 +26,5 @@ describe('Repository', function() {
     require("./checkout").spec();
     require("./get_lca").spec();
     require("./merge").spec();
+    require("./fetch").spec();
 });
