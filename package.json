@@ -35,12 +35,12 @@
     "node": ">=4.0"
   },
   "dependencies": {
+    "jsod": "^0.2.0-2",
     "lodash": "^4.6.1",
     "object-hash": "^1.1.2"
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "chai-spies": "^0.7.1",
     "coveralls": "^2.11.9",
     "mocha": "^2.4.5"
   }

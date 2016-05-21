@@ -141,5 +141,57 @@ exports.spec = function(){
                 expect(outY.commit.parents).to.deep.equal([outA.commitHash, outB.commitHash]);
             });
         });
+
+        context("when committing merged conflicted content; no message; no options", function() {
+            let repo = new jsodvcs.Repository();
+            let outA = {};
+            let outB = {};
+            let outX = {};
+            let outY = {};
+            repo.add("foo/bar", 42).commit({out:outX});
+            repo.branch("branchA").checkout("branchA");
+            repo.add("foo/bar", 84).commit({out:outA});
+            repo.checkout("master");
+            repo.branch("branchB").checkout("branchB");
+            repo.add("foo/bar", 2).commit({out:outB});
+
+            repo.checkout("branchA").merge("branchB");
+
+            it("should throw an error", function () {
+                expect(function(){repo.commit();}).to.throw(Error);
+            });
+        });
+
+        context("when committing merged conflicted content; options.ignoreConflicts = true", function() {
+            let repo = new jsodvcs.Repository();
+            let outA = {};
+            let outB = {};
+            let outX = {};
+            let outY = {};
+            repo.add("foo/bar", 42).commit({out:outX});
+            repo.branch("branchA").checkout("branchA");
+            repo.add("foo/bar", 84).commit({out:outA});
+            repo.checkout("master");
+            repo.branch("branchB").checkout("branchB");
+            repo.add("foo/bar", 2).commit({out:outB});
+
+            repo.checkout("branchA").merge("branchB");
+
+            it("should not throw an error", function () {
+                expect(function(){repo.commit({ignoreConflicts:true, out:outY});}).to.not.throw(Error);
+            });
+            it("should have committed without further changes", function () {
+                expect(outY.didCommit).to.be.true;
+            });
+            it("should remove merging state", function () {
+                expect(repo.isMerging).to.be.false;
+            });
+            it("should remove conflicts", function () {
+                expect(repo.hasMergeConflicts).to.be.false;
+            });
+            it("should give the commit two parents", function () {
+                expect(outY.commit.parents).to.deep.equal([outA.commitHash, outB.commitHash]);
+            });
+        });
     });
 };
