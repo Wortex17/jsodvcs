@@ -50,10 +50,12 @@ exports.spec = function(){
             let outA = {};
             let outB = {};
             repoA.add("foo/bar", 42).commit({out:outA});
-            repoB.add("foo/bar", 42).commit({out:outB});
+            repoB.add("foo/bar", 84).commit({out:outB});
             it("should return undefined", function () {
                 expect(repoA.get_lca(outA.commitHash, outB.commitHash)).to.be.undefined;
+                expect(repoA.get_lca(outB.commitHash, outA.commitHash)).to.be.undefined;
                 expect(repoB.get_lca(outA.commitHash, outB.commitHash)).to.be.undefined;
+                expect(repoB.get_lca(outB.commitHash, outA.commitHash)).to.be.undefined;
             });
         });
         context("when commitHashB is ahead of commitHashA", function() {
