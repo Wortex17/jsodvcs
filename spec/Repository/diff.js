@@ -52,7 +52,7 @@ exports.spec = function(){
                 .add('foo/bar2', 2)
                 .commit("")
                 .add('foo/bar', 42)
-                .add('foo/bar2', 3)
+                .remove('foo/bar2')
                 .add('foo/bar3', 666)
             ;
             it('should return an array', function () {
