@@ -227,6 +227,37 @@ exports.spec = function(){
                 expect(repo.mergeConflicts['foo/bar'].contentDelta).to.not.be.undefined;
             });
         });
+        context("when merging divergent commit with changes (including removal) at the same path", function() {
+            let repo = new jsodvcs.Repository();
+            let outA = {};
+            let outB = {};
+            let outX = {};
+            repo.add("foo/bar", 42).commit({out:outX});
+            repo.branch("branchA").checkout("branchA");
+            repo.add("foo/bar", 84).commit({out:outA});
+            repo.checkout("master");
+            repo.branch("branchB").checkout("branchB");
+            repo.remove("foo/bar").commit({out:outB});
+
+            repo.checkout("branchA");
+            let ret = repo.merge("branchB");
+
+            it("should return repo", function () {
+                expect(ret).to.equal(repo);
+            });
+            it("should set #isMerging", function () {
+                expect(repo.isMerging).to.be.true;
+            });
+            it("should record merge conflicts", function () {
+                expect(repo.hasMergeConflicts).to.be.true;
+            });
+            it("should not switch the branch", function () {
+                expect(repo.currentBranch).to.equal("branchA");
+            });
+            it("should generate contentDelta for mergeConflicts", function () {
+                expect(repo.mergeConflicts['foo/bar'].contentDelta).to.not.be.undefined;
+            });
+        });
         context("when merging divergent commit with changes at the same path; indexOnly:true", function() {
             let repo = new jsodvcs.Repository();
             let outA = {};
