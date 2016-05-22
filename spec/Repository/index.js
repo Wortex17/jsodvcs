@@ -18,4 +18,5 @@ describe('Repository', function() {
     require("./merge").spec();
     require("./fetch").spec();
     require("./pull").spec();
+    require("./push").spec();
 });
