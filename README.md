@@ -2,6 +2,7 @@
 A git-like distributed version control system for javascript objects.
 
 [![Build Status](https://travis-ci.org/Wortex17/jsodvcs.svg?branch=master)](https://travis-ci.org/Wortex17/jsodvcs)
+[![Build status](https://ci.appveyor.com/api/projects/status/8gj83geai65xkf3c/branch/master?svg=true)](https://ci.appveyor.com/project/Wortex17/jsodvcs/branch/master)
 [![Coverage Status](https://coveralls.io/repos/github/Wortex17/jsodvcs/badge.svg?branch=master)](https://coveralls.io/github/Wortex17/jsodvcs?branch=master)  
 [![NPM Version](https://img.shields.io/npm/v/jsodvcs.svg)](https://www.npmjs.com/package/jsodvcs)
 [![NPM Dependencies](https://img.shields.io/david/Wortex17/jsodvcs.svg)](https://www.npmjs.com/package/jsodvcs)
