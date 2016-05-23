@@ -28,9 +28,7 @@ exports.spec = function(){
             let repoB = new jsodvcs.Repository();
             let outB = {};
             repoB
-                .add("foo/int", 42)
-                .add("foo/string", "foobar")
-                .add("foo/obj", {a:'a'})
+                .add("foo/obj", {b:'b'})
                 .commit({out:outB});
             console.log("====START");
             let ret = repoA.pull(repoB);
