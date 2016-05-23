@@ -30,7 +30,6 @@ exports.spec = function(){
             repoB
                 .add("foo/obj", {b:'b'})
                 .commit({out:outB});
-            console.log("====START");
             let ret = repoA.pull(repoB);
             it('should return the repository', function() {
                 expect(ret).to.equal(repoA);
@@ -50,14 +49,9 @@ exports.spec = function(){
             it('should store remote branches', function() {
                 expect(repoA.get_ref("refs/remotes/origin/master")).to.equal(outB.commitHash);
             });
-            it.only('should set the repository in a merging state', function() {
-
-                console.log("repoA", require('util').inspect(repoA, {showHidden: false, depth: null}));
-                console.log("outB", require('util').inspect(outB, {showHidden: false, depth: null}));
-                console.log("repoB", require('util').inspect(repoB, {showHidden: false, depth: null}));
+            it('should set the repository in a merging state', function() {
                 expect(repoA.isMerging).to.be.true;
             });
-            console.log("====END");
         });
         context("when performing a simple pull of ahead-branch without options", function(){
             let repoA = new jsodvcs.Repository();
