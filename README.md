@@ -237,8 +237,8 @@ no automatic merge resolving can happen (```options.tryAutoResolve=false```)
 \<function(path, mergeConflict)>
 
 The callback that is used while merging to resolve conflicts automatically.
-Users can replace this with their custom auto resolving methods. The default resolver is available as
-```Repository.defaultAutoConflictResolver```
+Users can replace this with their custom auto resolving methods. The default resolver is available a
+Repository.defaultAutoConflictResolver.
 
 ##### Method: Repository.resolve_merge_conflict(path, resolvedContent)
 
